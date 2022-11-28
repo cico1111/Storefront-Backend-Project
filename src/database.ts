@@ -10,25 +10,31 @@ const{
     ENV,
     POSTGRES_TEST_DB
 }=process.env
-
-
-let client:any
-console.log(ENV)
-if(ENV == 'dev') {
-    client = new Pool({
-      host: POSTGRES_HOST,
-      database: POSTGRES_DB,
-      user: POSTGRES_USER,
-      password: POSTGRES_PASSWORD,
-    })
-  }
+const client = new Pool({
+  host: POSTGRES_HOST,
+  database: ENV === 'dev' ? POSTGRES_DB : POSTGRES_TEST_DB,
+  user: POSTGRES_USER,
+  password: POSTGRES_PASSWORD,
   
-  if(ENV == 'test') {
-    client = new Pool({
-      host: POSTGRES_HOST,
-      database: POSTGRES_TEST_DB,
-      user: POSTGRES_USER,
-      password: POSTGRES_PASSWORD,
-    })
-  }
+})
+
+// let client:any
+// console.log(ENV)
+// if(ENV == 'dev') {
+//     client = new Pool({
+//       host: POSTGRES_HOST,
+//       database: POSTGRES_DB,
+//       user: POSTGRES_USER,
+//       password: POSTGRES_PASSWORD,
+//     })
+//   }
+  
+//   if(ENV == 'test') {
+//     client = new Pool({
+//       host: POSTGRES_HOST,
+//       database: POSTGRES_TEST_DB,
+//       user: POSTGRES_USER,
+//       password: POSTGRES_PASSWORD,
+//     })
+//   }
 export default client
