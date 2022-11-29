@@ -1,7 +1,8 @@
 import express, { Request, Response } from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-
+import {Article, ArticleStore} from './models/article'
+import articleRoutes from './handler/articles'
 
 const app: express.Application = express()
 const address: string = "0.0.0.0:3000"
@@ -17,6 +18,8 @@ app.use(bodyParser.json())
 app.get('/', function (req: Request, res: Response) {
     res.send('Hello World!')
 })
+
+articleRoutes(app)
 
 //text:allow to use middle ware
 // middle ware: run between req and res
