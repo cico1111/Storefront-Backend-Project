@@ -1,7 +1,7 @@
 import express, {Request, Response} from 'express'
 import jwt from 'jsonwebtoken'
 
-const verifyAuthToken = (req: Request, res: Response, next) => {
+const verifyAuthToken = (req: Request, res: Response, next:any) => {
     try {
         const authorizationHeader = req.headers.authorization as string
         const token = authorizationHeader.split(' ')[1]

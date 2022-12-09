@@ -22,15 +22,15 @@ describe("Order Model", () => {
     const result = await store.create({
       product_id: '1',
       status: 'active',
-      quantity: 10,
+      quantity: '10',
       user_id: '1'
     });
     console.log("create--:",result)
     expect(result).toEqual({
-      id: 17,
+      id: 1,
       product_id: '1',
       status: 'active',
-      quantity: 10,
+      quantity: '10',
       user_id:'1' 
     });
   });
@@ -49,7 +49,7 @@ describe("Order Model", () => {
         id: 3,
         product_id: '1',
         status: 'active',
-        quantity: 10,
+        quantity: '10',
         user_id:'1' 
     });
   });
