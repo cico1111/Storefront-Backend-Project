@@ -25,10 +25,10 @@ const show =async (_req:Request, res: Response) => {
 
 const create =async (_req:Request, res: Response) => {
     const order: Order = {
-        user_id: _req.body.user_id,
-        status: _req.body.status,
         product_id: _req.body.product_id,
-        quantity: _req.body.quantity
+        quantity: _req.body.quantity,
+        status: _req.body.status,        
+        user_id: _req.body.user_id        
     }
     try {
         const newOrder = await store.create(order)
@@ -39,7 +39,7 @@ const create =async (_req:Request, res: Response) => {
     }
 }
 const destroy = async (_req: Request, res: Response) => {
-    const deleted = await store.delete(_req.body.id)
+    const deleted = await store.delete(_req.params.id)
     res.json(deleted)
 }
 // const addProduct =async (_req:Request, res: Response) => {

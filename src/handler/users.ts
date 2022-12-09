@@ -44,7 +44,7 @@ const create = async (req: Request, res: Response) => {
 }
 
 const destroy = async (_req: Request, res: Response) => {
-    const deleted = await store.delete(_req.body.id)
+    const deleted = await store.delete(_req.params.id)
     res.json(deleted)
 }
 

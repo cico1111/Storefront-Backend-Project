@@ -80,10 +80,10 @@ var create = function (_req, res) { return __awaiter(void 0, void 0, void 0, fun
         switch (_a.label) {
             case 0:
                 order = {
-                    user_id: _req.body.user_id,
-                    status: _req.body.status,
                     product_id: _req.body.product_id,
-                    quantity: _req.body.quantity
+                    quantity: _req.body.quantity,
+                    status: _req.body.status,
+                    user_id: _req.body.user_id
                 };
                 _a.label = 1;
             case 1:
@@ -106,7 +106,7 @@ var destroy = function (_req, res) { return __awaiter(void 0, void 0, void 0, fu
     var deleted;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, store["delete"](_req.body.id)];
+            case 0: return [4 /*yield*/, store["delete"](_req.params.id)];
             case 1:
                 deleted = _a.sent();
                 res.json(deleted);
