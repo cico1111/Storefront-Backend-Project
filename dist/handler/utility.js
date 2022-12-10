@@ -13,7 +13,7 @@ var verifyAuthToken = function (req, res, next) {
     }
     catch (error) {
         res.status(401);
-        res.json("Invalid token ".concat(error));
+        res.json("Invalid ~~~token ".concat(error));
     }
 };
 exports["default"] = verifyAuthToken;

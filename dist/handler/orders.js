@@ -45,9 +45,8 @@ var orderRoutes = function (app) {
     app.get('/orders', index);
     app.get('/orders/:id', show);
     app.post('/orders', utility_1["default"], create);
+    app.put('/orders/:id', utility_1["default"], update);
     app["delete"]('/orders/:id', utility_1["default"], destroy);
-    // add product
-    //app.post('/orders/:id/products', addProduct)
 };
 var store = new order_1.OrderStore();
 var index = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -102,6 +101,41 @@ var create = function (_req, res) { return __awaiter(void 0, void 0, void 0, fun
         }
     });
 }); };
+var update = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, product_id, quantity, status_1, user_id, order, e_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                id = parseInt(req.params.id);
+                product_id = req.body.product_id;
+                quantity = req.body.quantity;
+                status_1 = req.body.status;
+                user_id = req.body.user_id;
+                if (!product_id || !status_1 || !user_id || !quantity) {
+                    res.status(400);
+                    res.send("no parameters!!product_id=".concat(product_id, ",status=").concat(status_1, ",user_id=").concat(user_id, ",quantity=").concat(quantity));
+                    return [2 /*return*/];
+                }
+                return [4 /*yield*/, store.update(id, {
+                        product_id: product_id,
+                        quantity: quantity,
+                        status: status_1,
+                        user_id: user_id
+                    })];
+            case 1:
+                order = _a.sent();
+                res.json(order);
+                return [3 /*break*/, 3];
+            case 2:
+                e_1 = _a.sent();
+                res.status(400);
+                res.json(e_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
 var destroy = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var deleted;
     return __generator(this, function (_a) {
@@ -114,16 +148,4 @@ var destroy = function (_req, res) { return __awaiter(void 0, void 0, void 0, fu
         }
     });
 }); };
-// const addProduct =async (_req:Request, res: Response) => {
-//     const orderId: string = _req.params.id
-//     const productId: string = _req.body.productId
-//     const quantity: number = parseInt(_req.body.quantity)
-//     try {
-//         const addProduct = await store.addProduct (quantity, orderId, productId)
-//         res.json(addProduct)
-//     } catch (error) {
-//         res.status(400)
-//         res.json(error)
-//     }
-// }
 exports["default"] = orderRoutes;

@@ -10,7 +10,7 @@ const verifyAuthToken = (req: Request, res: Response, next:any) => {
         next()
     } catch (error) {
         res.status(401)
-        res.json(`Invalid token ${error}`)
+        res.json(`Invalid ~~~token ${error}`)
     }
 }
 export default verifyAuthToken

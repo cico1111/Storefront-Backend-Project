@@ -42,13 +42,10 @@ exports.__esModule = true;
 var user_1 = require("../models/user");
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var utility_1 = __importDefault(require("./utility"));
-//import { TokenInterface } from './token'
 var userRoutes = function (app) {
-    app.get('/users', index);
-    app.get('/users/:id', show);
+    app.get('/users', utility_1["default"], index);
+    app.get('/users/:id', utility_1["default"], show);
     app.post('/users', create);
-    app["delete"]('/users/:id', utility_1["default"], destroy);
-    //app.put('/users/:id',verifyAuthToken,update)
     app.post('/users/authenticate', authenticate);
 };
 var store = new user_1.Users();
@@ -116,34 +113,6 @@ var destroy = function (_req, res) { return __awaiter(void 0, void 0, void 0, fu
         }
     });
 }); };
-// const update = async (req: Request, res: Response) => {
-//     const user: User = {
-//         id: parseInt(req.params.id),
-//         firstname: req.body.firstname,
-//         lastname:req.body.lastname,
-//         password: req.body.password,
-//     }
-//     try {
-//         const authorizationHeader = req.headers.authorization as string
-//         const token = authorizationHeader.split(' ')[1]
-//         const decoded= jwt.verify(token, process.env.TOKEN_SECRET as string)
-//         console.log(decoded)
-//         if(decoded.id !== user.id) {
-//             throw new Error('User id does not match!')
-//         }
-//     } catch(err) {
-//         res.status(401)
-//         res.json(err)
-//         return
-//     }
-//     try {
-//         const updated = await store.create(user)
-//         res.json(updated)
-//     } catch(err) {
-//         res.status(400)
-//         res.json(err + user)
-//     }
-// }
 var authenticate = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var user, u, token, error_2;
     return __generator(this, function (_a) {
@@ -160,6 +129,7 @@ var authenticate = function (req, res) { return __awaiter(void 0, void 0, void 0
                 return [4 /*yield*/, store.authenticate(user.firstname, user.lastname, user.password)];
             case 2:
                 u = _a.sent();
+                console.log(u);
                 token = jsonwebtoken_1["default"].sign({ user: u }, process.env.TOKEN_SECRET);
                 res.json(token);
                 return [3 /*break*/, 4];

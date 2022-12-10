@@ -159,10 +159,8 @@ var Users = /** @class */ (function () {
                         return [4 /*yield*/, conn.query(sql, [firstname, lastname])];
                     case 2:
                         result = _a.sent();
-                        console.log(password + pepper);
                         if (result.rows.length) {
                             user = result.rows[0];
-                            console.log(user);
                             if (bcrypt_1["default"].compareSync(password + pepper, user.password_digest)) {
                                 return [2 /*return*/, user];
                             }

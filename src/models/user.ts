@@ -86,20 +86,15 @@ async create(u: User): Promise<User> {
 
  
   async authenticate(firstname: string, lastname:string, password: string): Promise<User | null> {
+    
     const conn = await Client.connect()
-    const sql = 'SELECT password_digest FROM users WHERE firstname=($1) AND lastname=($2)'
-  
-    const result = await conn.query(sql, [firstname, lastname])
-
-    console.log(password + pepper)
+    const sql = 'SELECT password_digest FROM users WHERE firstname=($1) AND lastname=($2)'  
+    const result = await conn.query(sql, [firstname, lastname])   
 
     if(result.rows.length) {
 
       const user = result.rows[0]
-
-      console.log(user)
-
-      if (bcrypt.compareSync(password+pepper, user.password_digest)) {
+      if (bcrypt.compareSync(password+pepper, user.password_digest)) {             
         return user
       }
     }

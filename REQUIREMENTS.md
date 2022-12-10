@@ -6,24 +6,27 @@ The company stakeholders want to create an online storefront to showcase their g
 - Index: 'products/' [GET]
 - Show:  'products/:id' [GET]
 - Create [token required]: 'products/' [POST] 
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category):'products/category/:category' [GET]
-
+- Delete [token required]: 'products/:id [DELETE]
 #### Users
-- Index [token required] : 'users/' [GET] 
-- Show [token required] : 'users/:id' [GET] 
-- Create N[token required] :'users/' [POST]
+- Index [token required]: 'users/' [GET] 
+- Show [token required]: 'users/:id' [GET] 
+- Create :'users/' [POST] 
+- Delete [token required]: 'users/:id' [DELETE] 
 
 #### Orders
-- Current Order by user (args: user id)[token required]: 'orders/user/:user_id' [GET] 
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]: 'orders/completed/:user_id' [GET]
+- Index: 'orders/' [GET]
+- Show:  'orders/:id' [GET]
+- Create [token required]: 'orders/' [POST] 
+- Delete [token required]: 'orders/:id [DELETE]
+- Update [token required]: '/orders/:id'[PUT]
+
 
 ## Data Shapes
+
 #### Product
 - id: SERIAL PRIMARY KEY
 - name: VARCHAR(64) NOT NULL,
 - price: integer NOT NULL
-- [OPTIONAL] category
 
 #### User
 - id: SERIAL PRIMARY KEY,

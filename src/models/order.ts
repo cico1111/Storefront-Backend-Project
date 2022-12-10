@@ -4,7 +4,7 @@ import Client from '../database'
 export type Order = {
   id?: number;
   product_id: string;
-  quantity: string;
+  quantity: number;
   status: string;
   user_id: string;
 }
@@ -50,13 +50,29 @@ export class OrderStore {
 
         const result = await conn.query(sql, [a.product_id,a.quantity,a.status, a.user_id])
 
-        const article = result.rows[0]
+        const order = result.rows[0]
 
         conn.release()
 
-        return article 
+        return order 
     } catch (err) {
         throw new Error(`Could not add orders ${a.status}. Error: ${err}`)
+    }
+  }
+
+  async update(id: number, newOrder: Order): Promise<Order> {
+    try {
+      
+      const sql = 'UPDATE orders SET product_id = $1, quantity = $2, status=$3 WHERE id = $4 RETURNING *';
+       // @ts-ignore
+      const conn = await Client.connect()
+      const result = await conn.query(sql, [newOrder.product_id, newOrder.quantity, newOrder.status, id])
+      const order = result.rows[0]
+      conn.release()
+      console.log(order)
+      return order 
+    } catch (err) {
+      throw new Error(`Could not update order${id} for user ${newOrder.user_id}. ${err}`);
     }
   }
 

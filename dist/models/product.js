@@ -95,7 +95,7 @@ var ProductStore = /** @class */ (function () {
     };
     ProductStore.prototype.create = function (a) {
         return __awaiter(this, void 0, void 0, function () {
-            var sql, conn, result, article, err_3;
+            var sql, conn, result, product, err_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -107,9 +107,9 @@ var ProductStore = /** @class */ (function () {
                         return [4 /*yield*/, conn.query(sql, [a.name, a.price])];
                     case 2:
                         result = _a.sent();
-                        article = result.rows[0];
+                        product = result.rows[0];
                         conn.release();
-                        return [2 /*return*/, article];
+                        return [2 /*return*/, product];
                     case 3:
                         err_3 = _a.sent();
                         throw new Error("Could not add product ".concat(a.name, ". Error: ").concat(err_3));
@@ -120,7 +120,7 @@ var ProductStore = /** @class */ (function () {
     };
     ProductStore.prototype["delete"] = function (id) {
         return __awaiter(this, void 0, void 0, function () {
-            var sql, conn, result, article, err_4;
+            var sql, conn, result, product, err_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -132,9 +132,9 @@ var ProductStore = /** @class */ (function () {
                         return [4 /*yield*/, conn.query(sql, [id])];
                     case 2:
                         result = _a.sent();
-                        article = result.rows[0];
+                        product = result.rows[0];
                         conn.release();
-                        return [2 /*return*/, article];
+                        return [2 /*return*/, product];
                     case 3:
                         err_4 = _a.sent();
                         throw new Error("Could not delete product ".concat(id, ". Error: ").concat(err_4));
