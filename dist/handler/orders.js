@@ -47,7 +47,7 @@ var orderRoutes = function (app) {
     app.post('/orders', utility_1["default"], create);
     app.put('/orders/:id', utility_1["default"], update);
     app["delete"]('/orders/:id', utility_1["default"], destroy);
-    app.post('/order/:id', addProduct);
+    app.post('/orders/:id/products', utility_1["default"], addProduct);
 };
 var store = new order_1.OrderStore();
 var index = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -138,23 +138,30 @@ var update = function (req, res) { return __awaiter(void 0, void 0, void 0, func
     });
 }); };
 var destroy = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var deleted;
+    var deleted, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, store["delete"](_req.params.id)];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, store["delete"](_req.params.id)];
             case 1:
                 deleted = _a.sent();
                 res.json(deleted);
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_2 = _a.sent();
+                res.json(error_2);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 var addProduct = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var orderId, productId, quantity, addProduct_1, error_2;
+    var orderId, productId, quantity, addProduct_1, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                orderId = _req.params.id;
+                orderId = parseInt(_req.params.id);
                 productId = _req.body.productId;
                 quantity = parseInt(_req.body.quantity);
                 _a.label = 1;
@@ -166,9 +173,9 @@ var addProduct = function (_req, res) { return __awaiter(void 0, void 0, void 0,
                 res.json(addProduct_1);
                 return [3 /*break*/, 4];
             case 3:
-                error_2 = _a.sent();
+                error_3 = _a.sent();
                 res.status(400);
-                res.json(error_2);
+                res.json(error_3);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }

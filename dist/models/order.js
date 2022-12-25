@@ -134,7 +134,6 @@ var OrderStore = /** @class */ (function () {
                         result = _a.sent();
                         order = result.rows[0];
                         conn.release();
-                        console.log(order);
                         return [2 /*return*/, order];
                     case 3:
                         err_4 = _a.sent();

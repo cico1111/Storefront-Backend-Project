@@ -50,31 +50,45 @@ var userRoutes = function (app) {
 };
 var store = new user_1.Users();
 var index = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var users;
+    var users, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, store.index()];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, store.index()];
             case 1:
                 users = _a.sent();
                 res.json(users);
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                res.json(error_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 var show = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user;
+    var user, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, store.show(_req.params.id)];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, store.show(_req.params.id)];
             case 1:
                 user = _a.sent();
                 res.json(user);
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_2 = _a.sent();
+                res.json(error_2);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 var create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, newUser, token, error_1;
+    var user, newUser, token, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -93,28 +107,35 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
                 res.json(token);
                 return [3 /*break*/, 4];
             case 3:
-                error_1 = _a.sent();
+                error_3 = _a.sent();
                 res.status(400);
-                res.json("".concat(error_1, ",").concat(user));
+                res.json("".concat(error_3, ",").concat(user));
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
     });
 }); };
 var destroy = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var deleted;
+    var deleted, error_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, store["delete"](_req.params.id)];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, store["delete"](_req.params.id)];
             case 1:
                 deleted = _a.sent();
                 res.json(deleted);
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_4 = _a.sent();
+                res.json(error_4);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 var authenticate = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, u, token, error_2;
+    var user, u, token, error_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -129,14 +150,13 @@ var authenticate = function (req, res) { return __awaiter(void 0, void 0, void 0
                 return [4 /*yield*/, store.authenticate(user.firstname, user.lastname, user.password)];
             case 2:
                 u = _a.sent();
-                console.log(u);
                 token = jsonwebtoken_1["default"].sign({ user: u }, process.env.TOKEN_SECRET);
                 res.json(token);
                 return [3 /*break*/, 4];
             case 3:
-                error_2 = _a.sent();
+                error_5 = _a.sent();
                 res.status(401);
-                res.json(error_2);
+                res.json(error_5);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
