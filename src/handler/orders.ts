@@ -8,6 +8,7 @@ const orderRoutes = (app:express.Application) => {
     app.post('/orders',verifyAuthToken, create)
     app.put('/orders/:id', verifyAuthToken, update);
     app.delete('/orders/:id', verifyAuthToken, destroy);
+    app.post('/orders/:id/products',verifyAuthToken, addProduct)
  
 }
 
@@ -67,8 +68,27 @@ const update = async (req: Request, res: Response) => {
   
 
 const destroy = async (_req: Request, res: Response) => {
+  try {
     const deleted = await store.delete(_req.params.id)
     res.json(deleted)
+  } catch (error) {
+    res.json(error)
+  }
+   
 }
 
+const addProduct =async (_req:Request, res: Response) => {
+    
+  const orderId: number = parseInt(_req.params.id)
+  const productId: number = _req.body.productId
+  const quantity: number = parseInt(_req.body.quantity)
+  try {
+      const addProduct = await store.addProduct (quantity, orderId, productId)
+      res.json(addProduct)
+      
+  } catch (error) {
+      res.status(400)
+      res.json(error)
+  }
+}
 export default orderRoutes

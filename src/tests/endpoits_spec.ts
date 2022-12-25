@@ -12,7 +12,7 @@ const SECRET = process.env.TOKEN_KEY as Secret;
 describe('Product Handler', () => {
   const product: Product = {
     name: 'book',
-    price: 12,
+    price: 25,
   };
 
   let token: string;
@@ -101,10 +101,11 @@ describe('Product Handler', () => {
       .set('Authorization', 'Bearer ' + token)
       .send({
         product_id: '1',
-        quantity: 7,
+        quantity: 10,
         status: 'active', 
         user_id: '1'        
       });  
+ 
     expect(res.status).toBe(200);
     done();
   });
@@ -142,7 +143,7 @@ describe('Product Handler', () => {
   it('gets the <order> --update-- endpoint', async (done) => {
     const newOrder: Order = {
       product_id: '1',
-      quantity: 7,
+      quantity: 10,
       status: 'active', 
       user_id: '1'        
     };
@@ -151,6 +152,19 @@ describe('Product Handler', () => {
       .send(newOrder)
       .set('Authorization', 'bearer ' + token);
 
+    expect(res.status).toBe(200);
+    done();
+  });
+
+  it('should <order> --addProduct-- endpoint', async (done) => {
+    const res = await request
+      .post(`/orders/1/products`)      
+      .send({
+        productId: '1',
+        quantity: 10       
+      })
+      .set('Authorization', 'bearer ' + token);  
+      
     expect(res.status).toBe(200);
     done();
   });

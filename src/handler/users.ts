@@ -13,13 +13,23 @@ const userRoutes = (app: express.Application) => {
 const store = new Users()
 
 const index = async(_req: Request, res: Response) => {
-    const users = await store.index()
-    res.json(users)
+    try {
+        const users = await store.index()
+        res.json(users)
+    } catch (error) {
+        res.json(error)
+    }
+    
 }
 
 const show = async(_req: Request, res: Response) => {
-    const user = await store.show(_req.params.id)
-    res.json(user)
+    try {
+        const user = await store.show(_req.params.id)
+        res.json(user)
+    } catch (error) {
+        res.json(error)
+    }
+  
 }
 
 const create = async (req: Request, res: Response) => {
@@ -39,8 +49,13 @@ const create = async (req: Request, res: Response) => {
 }
 
 const destroy = async (_req: Request, res: Response) => {
-    const deleted = await store.delete(_req.params.id)
-    res.json(deleted)
+    try {
+        const deleted = await store.delete(_req.params.id)
+        res.json(deleted)
+    } catch (error) {
+        res.json(error)
+    }
+   
 }
 
  
@@ -53,7 +68,7 @@ const authenticate = async (req: Request, res: Response) => {
     try {
         
         const u = await store.authenticate(user.firstname, user.lastname, user.password)
-        console.log(u)
+   
         var token = jwt.sign({ user: u }, process.env.TOKEN_SECRET as string);
         res.json(token)        
     } catch(error) {

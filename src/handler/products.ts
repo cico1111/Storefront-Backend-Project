@@ -13,12 +13,22 @@ const productRoutes = (app: express.Application) => {
 const store = new ProductStore()
 
 const index = async(_req: Request, res: Response) => {
-    const products = await store.index()
-    res.json(products)
+    try {
+        const products = await store.index()
+        res.json(products)
+    } catch (error) {
+        res.json(error)
+    }
+   
 }
 const show =async (_req:Request, res: Response) => {
-    const order = await store.show(_req.params.id)
-    res.json(order)
+    try {
+        const order = await store.show(_req.params.id)
+        res.json(order)
+    } catch (error) {
+        res.json(error)
+    }
+    
 }
 const create =async (_req: Request, res: Response) => {
     const product: Product = {
@@ -33,9 +43,13 @@ const create =async (_req: Request, res: Response) => {
     }
 }
 const destroy = async (_req: Request, res: Response) => {
-    const deleted = await store.delete(_req.params.id)
-    res.json(deleted)
+    try {
+        const deleted = await store.delete(_req.params.id)
+        res.json(deleted)
+
+    } catch (error) {
+        res.json
+    }   
+
 }
-
-
 export default productRoutes

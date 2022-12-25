@@ -47,6 +47,7 @@ var orderRoutes = function (app) {
     app.post('/orders', utility_1["default"], create);
     app.put('/orders/:id', utility_1["default"], update);
     app["delete"]('/orders/:id', utility_1["default"], destroy);
+    app.post('/order/:id', addProduct);
 };
 var store = new order_1.OrderStore();
 var index = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -145,6 +146,31 @@ var destroy = function (_req, res) { return __awaiter(void 0, void 0, void 0, fu
                 deleted = _a.sent();
                 res.json(deleted);
                 return [2 /*return*/];
+        }
+    });
+}); };
+var addProduct = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var orderId, productId, quantity, addProduct_1, error_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                orderId = _req.params.id;
+                productId = _req.body.productId;
+                quantity = parseInt(_req.body.quantity);
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, store.addProduct(quantity, orderId, productId)];
+            case 2:
+                addProduct_1 = _a.sent();
+                res.json(addProduct_1);
+                return [3 /*break*/, 4];
+            case 3:
+                error_2 = _a.sent();
+                res.status(400);
+                res.json(error_2);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); };

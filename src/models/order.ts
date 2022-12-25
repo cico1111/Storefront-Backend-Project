@@ -69,7 +69,7 @@ export class OrderStore {
       const result = await conn.query(sql, [newOrder.product_id, newOrder.quantity, newOrder.status, id])
       const order = result.rows[0]
       conn.release()
-      console.log(order)
+      
       return order 
     } catch (err) {
       throw new Error(`Could not update order${id} for user ${newOrder.user_id}. ${err}`);
@@ -94,12 +94,13 @@ export class OrderStore {
     }
   }
 
-  async addProduct(quantity:number, orderId: string, productId: string): Promise<Order>{
+  async addProduct(quantity:number, orderId:number, productId: number): Promise<Order>{
     try {
+      
       const sql = 'INSERT INTO order_products (quantity, order_id, product_id) VALUES ($1,$2, $3) RETURNING *'
       //@ts-ignore
       const conn = await Client.connect()
-
+      
       const result = await conn.query(sql, [quantity, orderId, productId])
       
       const order = result.rows[0]
