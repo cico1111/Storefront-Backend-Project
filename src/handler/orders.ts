@@ -15,13 +15,23 @@ const orderRoutes = (app:express.Application) => {
 const store = new OrderStore()
 
 const index =async (_req: Request, res:Response) => {
+  try {
     const orders = await store.index()
     res.json(orders)
+  } catch (error) {
+    res.json(error)
+  }
+    
 }
 
 const show =async (_req:Request, res: Response) => {
+  try {
     const order = await store.show(_req.params.id)
     res.json(order)
+  } catch (error) {
+    res.json(error)
+  }
+    
 }
 
 const create =async (_req:Request, res: Response) => {
